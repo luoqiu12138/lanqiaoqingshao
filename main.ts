@@ -310,7 +310,7 @@ namespace lanqiaoqingshao{
      * @param color is string color, eg: 1
      */
     //% subcategory=OLED
-    //% blockId="OLED12864_I2C_SHOWSTRING" block="显示字符串 |行 %x|列 %y|字符串 %s|颜色 %color"
+    //% blockId="OLED12864_I2C_SHOWSTRING" block="显示字符串 |列 %x|行 %y|字符串 %s|颜色 %color"
     //% weight=80 blockGap=8
     export function showString(x: number, y: number, s: string, color: number = 1) {
         let col = 0
@@ -346,7 +346,7 @@ namespace lanqiaoqingshao{
      * @param num is the number will be show, eg: 12
      * @param color is number color, eg: 1
      */
-    //% blockId="OLED12864_I2C_NUMBER" block="显示数字 |行 %x|列 %y|数字 %num|颜色 %color"
+    //% blockId="OLED12864_I2C_NUMBER" block="显示数字 |列 %x|行 %y|数字 %num|颜色 %color"
     //% weight=80 blockGap=8
     //% subcategory=OLED
     export function showNumber2(x: number, y: number, num: number, color: number = 1) {
@@ -621,15 +621,7 @@ namespace lanqiaoqingshao{
         }
     }
 
-    /**
-    * A NeoPixel strip
-    */
-    export function sendBuffer(buf: Buffer, pin: DigitalPin) {
-    }
 
-    //% shim=setBufferMode
-    export function setBufferMode(pin: DigitalPin, mode: number) {
-    }
     export class Strip {
         buf: Buffer;
         pin: DigitalPin;
@@ -729,14 +721,14 @@ namespace lanqiaoqingshao{
         //% subcategory=WS2812B
         setPixelColor(pixeloffset: number, rgb: number): void {
             this.setPixelRGB(pixeloffset >> 0, rgb >> 0);
-            sendBuffer(this.buf, this.pin);
+            ws2812b.sendBuffer(this.buf, this.pin);
         }
 
 
         show() {
             // only supported in beta
             // ws2812b.setBufferMode(this.pin, this._mode);
-            sendBuffer(this.buf, this.pin);
+            ws2812b.sendBuffer(this.buf, this.pin);
         }
 
         /**
@@ -749,7 +741,7 @@ namespace lanqiaoqingshao{
         clear(): void {
             const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
             this.buf.fill(0, this.start * stride, this._length * stride);
-            sendBuffer(this.buf, this.pin);
+            ws2812b.sendBuffer(this.buf, this.pin);
         }
 
 
@@ -777,7 +769,7 @@ namespace lanqiaoqingshao{
             offset = offset >> 0;
             const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
             this.buf.shift(-offset * stride, this.start * stride, this._length * stride)
-            sendBuffer(this.buf, this.pin);
+            ws2812b.sendBuffer(this.buf, this.pin);
         }
 
         /**
@@ -792,7 +784,7 @@ namespace lanqiaoqingshao{
             offset = offset >> 0;
             const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
             this.buf.rotate(-offset * stride, this.start * stride, this._length * stride)
-            sendBuffer(this.buf, this.pin);
+            ws2812b.sendBuffer(this.buf, this.pin);
         }
 
         /**
