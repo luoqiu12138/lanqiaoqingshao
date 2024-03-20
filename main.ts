@@ -1628,8 +1628,8 @@ namespace lanqiaoqingshao{
     
     let i2cAddr = 0x60;
     /**
-        * Read the measured distance in centimeters
-        */
+    * Read the measured distance in centimeters
+    */
     export function fnReadCm(i2cAddr: number): number {
         let mm: number;
 
