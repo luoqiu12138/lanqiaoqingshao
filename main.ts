@@ -1632,7 +1632,6 @@ namespace lanqiaoqingshao{
     */
     export function fnReadCm(i2cAddr: number): number {
         let cm: number;
-
         pins.i2cWriteNumber(0X57, 0X01, NumberFormat.UInt8BE)
         basic.pause(100)
         let readbuf = pins.i2cReadBuffer(0X57, pins.sizeOf(NumberFormat.UInt8LE) * 3)
