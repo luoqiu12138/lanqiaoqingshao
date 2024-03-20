@@ -1,7 +1,41 @@
+enum NeoPixelColors {
+    //% block=红色
+    Red = 0xFF0000,
+    //% block=橙色
+    Orange = 0xFFA500,
+    //% block=黄色
+    Yellow = 0xFFFF00,
+    //% block=绿色
+    Green = 0x00FF00,
+    //% block=蓝色
+    Blue = 0x0000FF,
+    //% block=靛蓝色
+    Indigo = 0x4b0082,
+    //% block=蓝紫色
+    Violet = 0x8a2be2,
+    //% block=紫色的
+    Purple = 0xFF00FF,
+    //% block=白色
+    White = 0xFFFFFF,
+    //% block=黑色
+    Black = 0x000000
+}
 
+/**
+ * Different modes for RGB or RGB+W NeoPixel strips
+ */
+enum NeoPixelMode {
+    //% block="RGB (GRB format)"
+    RGB = 1,
+    //% block="RGB+W"
+    RGBW = 2,
+    //% block="RGB (RGB format)"
+    RGB_RGB = 3
+}
 
 //% weight=50 color=#0855AA icon="\uf26c" block="蓝桥青少"
 namespace lanqiaoqingshao{
+
     let font: number[] = [];
     font[0] = 0x0022d422;
     font[1] = 0x0022d422;
@@ -333,7 +367,7 @@ namespace lanqiaoqingshao{
      */
     //% blockId="OLED12864_I2C_CLEAR" block="清屏"
     //% weight=63 blockGap=8
-   //% subcategory=OLED
+    //% subcategory=OLED
     export function clear2() {
         _screen.fill(0)
         _screen[0] = 0x40
@@ -345,7 +379,7 @@ namespace lanqiaoqingshao{
      */
     //% blockId="OLED12864_I2C_ON" block="开启屏幕"
     //% weight=62 blockGap=8
-   //% subcategory=OLED
+    //% subcategory=OLED
     export function on2() {
         cmd1(0xAF)
     }
@@ -400,7 +434,7 @@ namespace lanqiaoqingshao{
         cmd1(0xA6)       // SSD1306_NORMALDISPLAY
         cmd2(0xD6, 1)    // zoom on
         cmd1(0xAF)       // SSD1306_DISPLAYON
-        clear()
+        clear2()
         _ZOOM = 1
     }
 
@@ -520,48 +554,10 @@ namespace lanqiaoqingshao{
                 return dht11Humidity
         }
     }
-
-    /**
- * Well known colors for a NeoPixel strip
- */
-    enum NeoPixelColors {
-        //% block=红色
-        Red = 0xFF0000,
-        //% block=橙色
-        Orange = 0xFFA500,
-        //% block=黄色
-        Yellow = 0xFFFF00,
-        //% block=绿色
-        Green = 0x00FF00,
-        //% block=蓝色
-        Blue = 0x0000FF,
-        //% block=靛蓝色
-        Indigo = 0x4b0082,
-        //% block=蓝紫色
-        Violet = 0x8a2be2,
-        //% block=紫色的
-        Purple = 0xFF00FF,
-        //% block=白色
-        White = 0xFFFFFF,
-        //% block=黑色
-        Black = 0x000000
-    }
-
-    /**
-     * Different modes for RGB or RGB+W NeoPixel strips
-     */
-    enum NeoPixelMode {
-        //% block="RGB (GRB format)"
-        RGB = 1,
-        //% block="RGB+W"
-        RGBW = 2,
-        //% block="RGB (RGB format)"
-        RGB_RGB = 3
-    }
     
     /**
-   * A NeoPixel strip
-   */
+    * A NeoPixel strip
+    */
     export function sendBuffer(buf: Buffer, pin: DigitalPin) {
     }
 
@@ -664,7 +660,7 @@ namespace lanqiaoqingshao{
         //% strip.defl=strip
         //% blockGap=8
         //% weight=80
-         //% subcategory=WS2812B
+        //% subcategory=WS2812B
         setPixelColor(pixeloffset: number, rgb: number): void {
             this.setPixelRGB(pixeloffset >> 0, rgb >> 0);
             sendBuffer(this.buf, this.pin);
@@ -698,7 +694,7 @@ namespace lanqiaoqingshao{
         //% blockId="neopixel_set_brightness" block="设置%strip|所有灯珠亮度为 %brightness|" blockGap=8
         //% strip.defl=strip
         //% weight=85
-         //% subcategory=WS2812B
+        //% subcategory=WS2812B
         setBrightness(brightness: number): void {
             this.brightness = brightness & 0xff;
         }
@@ -835,8 +831,8 @@ namespace lanqiaoqingshao{
     //% blockId="neopixel_create" block="引脚%pin|灯珠个数%numleds|显示模式%mode"
     //% weight=90 blockGap=8
     //% subcategory=WS2812B
-    //% trackArgs=0,2
     //% blockSetVariable=strip
+    
     export function create(pin: DigitalPin, numleds: number, mode: NeoPixelMode): Strip {
         let strip = new Strip();
         let stride = mode === NeoPixelMode.RGBW ? 4 : 3;
@@ -851,7 +847,7 @@ namespace lanqiaoqingshao{
     }
 
     /**
-     * RGB颜色
+     *将红、绿、蓝转换为RGB颜色
      * @param red value of the red channel between 0 and 255. eg: 255
      * @param green value of the green channel between 0 and 255. eg: 255
      * @param blue value of the blue channel between 0 and 255. eg: 255
@@ -939,145 +935,5 @@ namespace lanqiaoqingshao{
         CounterClockwise,
         Shortest
     }
-
-    let COMMAND_I2C_ADDRESS = 0x24
-    let DISPLAY_I2C_ADDRESS = 0x34
-    let _SEG = [0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71];
-
-    let _intensity = 3
-    let dbuf = [0, 0, 0, 0]
-
-    /**
-     * send command to display
-     * @param is command, eg: 0
-     */
-    function cmd(c: number) {
-        pins.i2cWriteNumber(COMMAND_I2C_ADDRESS, c, NumberFormat.Int8BE)
-    }
-
-    /**
-     * send data to display
-     * @param is data, eg: 0
-     */
-    function dat(bit: number, d: number) {
-        pins.i2cWriteNumber(DISPLAY_I2C_ADDRESS + (bit % 4), d, NumberFormat.Int8BE)
-    }
-
-    /**
-     * 打开数码管显示
-     */
-    //% blockId="TM650_ON" block="开启显示"
-    //% weight=50 blockGap=8
-    //% subcategory=数码管
-    export function on() {
-        cmd(_intensity * 16 + 1)
-    }
-
-    /**
-     * 关闭数码管显示
-     */
-    //% blockId="TM650_OFF" block="关闭显示"
-    //% weight=50 blockGap=8
-    //% subcategory=数码管
-    export function off() {
-        _intensity = 0
-        cmd(0)
-    }
-
-    /**
-     * 清空数码管显示
-     */
-    //% blockId="TM650_CLEAR" block="清空显示"
-    //% weight=40 blockGap=8
-    //% subcategory=数码管
-    export function clear() {
-        dat(0, 0)
-        dat(1, 0)
-        dat(2, 0)
-        dat(3, 0)
-        dbuf = [0, 0, 0, 0]
-    }
-
-    /**
-     * 在指定位置显示
-     * @param digit is number (0-15) will be shown, eg: 1
-     * @param bit is position, eg: 0
-     */
-    //% blockId="TM650_DIGIT" block="显示数字%num|在第%bit位"
-    //% weight=80 blockGap=8
-    //% num.max=15 num.min=0
-    //% subcategory=数码管
-    export function digit(num: number, bit: number) {
-        dbuf[bit % 4] = _SEG[num % 16]
-        dat(bit, _SEG[num % 16])
-    }
-
-    /**
-     * 显示数字
-     * @param num is number will be shown, eg: 100
-     */
-    //% blockId="TM650_SHOW_NUMBER" block="显示数字%num"
-    //% weight=100 blockGap=8
-    //% subcategory=数码管
-    export function showNumber(num: number) {
-        if (num < 0) {
-            dat(0, 0x40) // '-'
-            num = -num
-        }
-        else
-            digit(Math.idiv(num, 1000) % 10, 0)
-        digit(num % 10, 3)
-        digit(Math.idiv(num, 10) % 10, 2)
-        digit(Math.idiv(num, 100) % 10, 1)
-    }
-
-    /**
-     * 显示16进制数字
-     * @param num is number will be shown, eg: 123
-     */
-    //% blockId="TM650_SHOW_HEX_NUMBER" block="显示16进制数字%num"
-    //% weight=90 blockGap=8
-    //% subcategory=数码管
-    export function showHex(num: number) {
-        if (num < 0) {
-            dat(0, 0x40) // '-'
-            num = -num
-        }
-        else
-            digit((num >> 12) % 16, 0)
-        digit(num % 16, 3)
-        digit((num >> 4) % 16, 2)
-        digit((num >> 8) % 16, 1)
-    }
-
-    /**
-     * 显示点在指定位子
-     * @param bit is positiion, eg: 0
-     * @param show is true/false, eg: true
-     */
-    //% blockId="TM650_SHOW_DP" block="显示第%bit小数点|%num"
-    //% weight=80 blockGap=8
-    //% subcategory=数码管
-    export function showDpAt(bit: number, show: boolean) {
-        if (show) dat(bit, dbuf[bit % 4] | 0x80)
-        else dat(bit, dbuf[bit % 4] & 0x7F)
-    }
-
-    /**
-     * 显示亮度
-     * @param dat is intensity of the display, eg: 3
-     */
-    //% blockId="TM650_INTENSITY" block="设置显示亮度为%dat"
-    //% weight=70 blockGap=8
-    //% subcategory=数码管
-    export function setIntensity(dat: number) {
-        if ((dat < 0) || (dat > 8))
-            return;
-        if (dat == 0)
-            off()
-        else {
-            _intensity = dat
-            cmd((dat << 4) | 0x01)
-        }
-    }
+  
 }
