@@ -1636,7 +1636,8 @@ namespace lanqiaoqingshao{
         pins.i2cWriteNumber(0X57, 0X01, NumberFormat.UInt8BE)
         basic.pause(100)
         let readbuf = pins.i2cReadBuffer(0X57, pins.sizeOf(NumberFormat.UInt8LE) * 3)
-        mm = (readbuf[0] * 65535 + readbuf[1] * 256 + readbuf[2]) / 100;
+        mm = (readbuf[0] * 65535 + readbuf[1] * 256 + readbuf[2]) / 1000;
+        Math.round(mm);
         return (mm)
     }
 
