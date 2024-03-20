@@ -1,6 +1,6 @@
 
 
-//% weight=50 color=#0855AA icon="\uf26c" block="合集"
+//% weight=50 color=#0855AA icon="\uf26c" block="蓝桥青少"
 namespace lanqiaoqingshao{
     let font: number[] = [];
     font[0] = 0x0022d422;
@@ -179,7 +179,7 @@ namespace lanqiaoqingshao{
      * @param y is Y alis, eg: 0
      * @param color is dot color, eg: 1
      */
-    //% subcategory=OLED12864
+    //% subcategory=OLED
     //% blockId="OLED12864_I2C_PIXEL" block="显示像素点 x%x|y%y|颜色%color"
     //% weight=70 blockGap=8
     export function pixel(x: number, y: number, color: number = 1) {
@@ -209,7 +209,7 @@ namespace lanqiaoqingshao{
      * @param s is the text will be show, eg: 'Hello!'
      * @param color is string color, eg: 1
      */
-    //% subcategory=OLED12864
+    //% subcategory=OLED
     //% blockId="OLED12864_I2C_SHOWSTRING" block="显示字符串 |行 %x|列 %y|字符串 %s|颜色 %color"
     //% weight=80 blockGap=8
     export function showString(x: number, y: number, s: string, color: number = 1) {
@@ -248,8 +248,8 @@ namespace lanqiaoqingshao{
      */
     //% blockId="OLED12864_I2C_NUMBER" block="显示数字 |行 %x|列 %y|数字 %num|颜色 %color"
     //% weight=80 blockGap=8
-    //% subcategory=OLED12864
-    export function showNumber(x: number, y: number, num: number, color: number = 1) {
+    //% subcategory=OLED
+    export function showNumber2(x: number, y: number, num: number, color: number = 1) {
         showString(x, y, num.toString(), color)
     }
 
@@ -262,7 +262,7 @@ namespace lanqiaoqingshao{
      */
     //% blockId="OLED12864_I2C_HLINE" block="显示一条水平线 |x %x|y %y|长度 %len|颜色 %color"
     //% weight=71 blockGap=8
-    //% subcategory=OLED12864
+    //% subcategory=OLED
     export function hline(x: number, y: number, len: number, color: number = 1) {
         for (let i = x; i < (x + len); i++)
             pixel(i, y, color)
@@ -277,7 +277,7 @@ namespace lanqiaoqingshao{
      */
     //% blockId="OLED12864_I2C_VLINE" block="显示一条垂直线 |x %x|y %y|长度 %len|颜色 %color"
     //% weight=72 blockGap=8
-    //% subcategory=OLED12864
+    //% subcategory=OLED
     export function vline(x: number, y: number, len: number, color: number = 1) {
         for (let i = y; i < (y + len); i++)
             pixel(x, i, color)
@@ -293,7 +293,7 @@ namespace lanqiaoqingshao{
      */
     //% blockId="OLED12864_I2C_RECT" block="显示一个矩形 |x1 %x1 y1 %y1|x2 %x2 y2 %y2|颜色 %color"
     //% weight=73 blockGap=8
-    //% subcategory=OLED12864
+    //% subcategory=OLED
     export function rect(x1: number, y1: number, x2: number, y2: number, color: number = 1) {
         if (x1 > x2)
             x1 = [x2, x2 = x1][0];
@@ -311,7 +311,7 @@ namespace lanqiaoqingshao{
      */
     //% blockId="OLED12864_I2C_INVERT" block="反转显示 %d"
     //% weight=65 blockGap=8
-    //% subcategory=OLED12864
+    //% subcategory=OLED
     export function invert(d: boolean = true) {
         let n = (d) ? 0xA7 : 0xA6
         cmd1(n)
@@ -322,7 +322,7 @@ namespace lanqiaoqingshao{
      */
     //% blockId="OLED12864_I2C_DRAW" block="绘制"
     //% weight=64 blockGap=8
-    //% subcategory=OLED12864
+    //% subcategory=OLED
     export function draw() {
         set_pos()
         pins.i2cWriteBuffer(_I2CAddr, _screen)
@@ -333,8 +333,8 @@ namespace lanqiaoqingshao{
      */
     //% blockId="OLED12864_I2C_CLEAR" block="清屏"
     //% weight=63 blockGap=8
-   //% subcategory=OLED12864
-    export function clear() {
+   //% subcategory=OLED
+    export function clear2() {
         _screen.fill(0)
         _screen[0] = 0x40
         draw()
@@ -345,8 +345,8 @@ namespace lanqiaoqingshao{
      */
     //% blockId="OLED12864_I2C_ON" block="开启屏幕"
     //% weight=62 blockGap=8
-   //% subcategory=OLED12864
-    export function on() {
+   //% subcategory=OLED
+    export function on2() {
         cmd1(0xAF)
     }
 
@@ -355,8 +355,8 @@ namespace lanqiaoqingshao{
      */
     //% blockId="OLED12864_I2C_OFF" block="关闭屏幕"
     //% weight=61 blockGap=8
-    //% subcategory=OLED12864
-    export function off() {
+    //% subcategory=OLED
+    export function off2() {
         cmd1(0xAE)
     }
 
@@ -366,7 +366,7 @@ namespace lanqiaoqingshao{
      */
     //% blockId="OLED12864_I2C_ZOOM" block="缩放模式%d"
     //% weight=60 blockGap=8
-    //% subcategory=OLED12864
+    //% subcategory=OLED
     export function zoom(d: boolean = true) {
         _ZOOM = (d) ? 0 : 1
         cmd2(0xd6, _ZOOM)
@@ -378,7 +378,7 @@ namespace lanqiaoqingshao{
      */
     //% blockId="OLED12864_I2C_init" block=" OLED初始化 "
     //% weight=100 blockGap=8
-    //% subcategory=OLED12864
+    //% subcategory=OLED
     export function init() {
         _I2CAddr = 60;
         cmd1(0xAE)       // SSD1306_DISPLAYOFF
@@ -402,5 +402,1231 @@ namespace lanqiaoqingshao{
         cmd1(0xAF)       // SSD1306_DISPLAYON
         clear()
         _ZOOM = 1
+    }
+
+    export enum DHT11Type {
+        //% block="温度(℃)" enumval=0
+        DHT11_temperature_C,
+
+        //% block="温度(℉)" enumval=1
+        DHT11_temperature_F,
+
+        //% block="湿度(0~100)" enumval=2
+        DHT11_humidity,
+    }
+    let dht11Humidity = 0
+    let dht11Temperature = 0
+
+    /**
+     *获取温湿度值
+     * @param dht11pin describe parameter here, eg: DigitalPin.P15
+     */
+    //% blockId="readdht11" block="获取%dht11type|在%dht11pin"
+    //% weight=70 blockGap=8
+    //% subcategory=DHT11
+    export function dht11value(dht11type: DHT11Type, dht11pin: DigitalPin): number {
+        const DHT11_TIMEOUT = 100
+        const buffer = pins.createBuffer(40)
+        const data = [0, 0, 0, 0, 0]
+        let startTime = control.micros()
+
+        if (control.hardwareVersion().slice(0, 1) !== '1') { // V2
+            // TODO: V2 bug
+            pins.digitalReadPin(DigitalPin.P0);
+            pins.digitalReadPin(DigitalPin.P1);
+            pins.digitalReadPin(DigitalPin.P2);
+            pins.digitalReadPin(DigitalPin.P3);
+            pins.digitalReadPin(DigitalPin.P4);
+            pins.digitalReadPin(DigitalPin.P10);
+
+            // 1.start signal
+            pins.digitalWritePin(dht11pin, 0)
+            basic.pause(18)
+
+            // 2.pull up and wait 40us
+            pins.setPull(dht11pin, PinPullMode.PullUp)
+            pins.digitalReadPin(dht11pin)
+            control.waitMicros(40)
+
+            // 3.read data
+            startTime = control.micros()
+            while (pins.digitalReadPin(dht11pin) === 0) {
+                if (control.micros() - startTime > DHT11_TIMEOUT) break
+            }
+            startTime = control.micros()
+            while (pins.digitalReadPin(dht11pin) === 1) {
+                if (control.micros() - startTime > DHT11_TIMEOUT) break
+            }
+
+            for (let dataBits = 0; dataBits < 40; dataBits++) {
+                startTime = control.micros()
+                while (pins.digitalReadPin(dht11pin) === 1) {
+                    if (control.micros() - startTime > DHT11_TIMEOUT) break
+                }
+                startTime = control.micros()
+                while (pins.digitalReadPin(dht11pin) === 0) {
+                    if (control.micros() - startTime > DHT11_TIMEOUT) break
+                }
+                control.waitMicros(28)
+                if (pins.digitalReadPin(dht11pin) === 1) {
+                    buffer[dataBits] = 1
+                }
+            }
+        } else { // V1
+            // 1.start signal
+            pins.digitalWritePin(dht11pin, 0)
+            basic.pause(18)
+
+            // 2.pull up and wait 40us
+            pins.setPull(dht11pin, PinPullMode.PullUp)
+            pins.digitalReadPin(dht11pin)
+            control.waitMicros(40)
+
+            // 3.read data
+            if (pins.digitalReadPin(dht11pin) === 0) {
+                while (pins.digitalReadPin(dht11pin) === 0);
+                while (pins.digitalReadPin(dht11pin) === 1);
+
+                for (let dataBits = 0; dataBits < 40; dataBits++) {
+                    while (pins.digitalReadPin(dht11pin) === 1);
+                    while (pins.digitalReadPin(dht11pin) === 0);
+                    control.waitMicros(28)
+                    if (pins.digitalReadPin(dht11pin) === 1) {
+                        buffer[dataBits] = 1
+                    }
+                }
+            }
+        }
+
+        for (let i = 0; i < 5; i++) {
+            for (let j = 0; j < 8; j++) {
+                if (buffer[8 * i + j] === 1) {
+                    data[i] += 2 ** (7 - j)
+                }
+            }
+        }
+
+        if (((data[0] + data[1] + data[2] + data[3]) & 0xff) === data[4]) {
+            dht11Humidity = data[0] + data[1] * 0.1
+            dht11Temperature = data[2] + data[3] * 0.1
+        }
+
+        switch (dht11type) {
+            case DHT11Type.DHT11_temperature_C:
+                return dht11Temperature
+            case DHT11Type.DHT11_temperature_F:
+                return (dht11Temperature * 1.8) + 32
+            case DHT11Type.DHT11_humidity:
+                return dht11Humidity
+        }
+    }
+
+    /**
+ * Well known colors for a NeoPixel strip
+ */
+    enum NeoPixelColors {
+        //% block=红色
+        Red = 0xFF0000,
+        //% block=橙色
+        Orange = 0xFFA500,
+        //% block=黄色
+        Yellow = 0xFFFF00,
+        //% block=绿色
+        Green = 0x00FF00,
+        //% block=蓝色
+        Blue = 0x0000FF,
+        //% block=靛蓝色
+        Indigo = 0x4b0082,
+        //% block=蓝紫色
+        Violet = 0x8a2be2,
+        //% block=紫色的
+        Purple = 0xFF00FF,
+        //% block=白色
+        White = 0xFFFFFF,
+        //% block=黑色
+        Black = 0x000000
+    }
+
+    /**
+     * Different modes for RGB or RGB+W NeoPixel strips
+     */
+    enum NeoPixelMode {
+        //% block="RGB (GRB format)"
+        RGB = 1,
+        //% block="RGB+W"
+        RGBW = 2,
+        //% block="RGB (RGB format)"
+        RGB_RGB = 3
+    }
+    
+    /**
+   * A NeoPixel strip
+   */
+    export function sendBuffer(buf: Buffer, pin: DigitalPin) {
+    }
+
+    //% shim=setBufferMode
+    export function setBufferMode(pin: DigitalPin, mode: number) {
+    }
+    export class Strip {
+        buf: Buffer;
+        pin: DigitalPin;
+        // TODO: encode as bytes instead of 32bit
+        brightness: number;
+        start: number; // start offset in LED strip
+        _length: number; // number of LEDs
+        _mode: NeoPixelMode;
+        _matrixWidth: number; // number of leds in a matrix - if any
+
+        /**
+         * 设置所有灯珠的颜色
+         * @param rgb RGB color of the LED
+         */
+        //% blockId="neopixel_set_strip_color" block="设置%strip|所有灯珠的颜色为%rgb=neopixel_colors"
+        //% strip.defl=strip
+        //% weight=85 blockGap=8
+        //% subcategory=WS2812B
+        showColor(rgb: number) {
+            rgb = rgb >> 0;
+            this.setAllRGB(rgb);
+            this.show();
+        }
+
+        /**
+         * Shows a rainbow pattern on all LEDs.
+         * @param startHue the start hue value for the rainbow, eg: 1
+         * @param endHue the end hue value for the rainbow, eg: 360
+         */
+        showRainbow(startHue: number = 1, endHue: number = 360) {
+            if (this._length <= 0) return;
+
+            startHue = startHue >> 0;
+            endHue = endHue >> 0;
+            const saturation = 100;
+            const luminance = 50;
+            const steps = this._length;
+            const direction = HueInterpolationDirection.Clockwise;
+
+            //hue
+            const h1 = startHue;
+            const h2 = endHue;
+            const hDistCW = ((h2 + 360) - h1) % 360;
+            const hStepCW = Math.idiv((hDistCW * 100), steps);
+            const hDistCCW = ((h1 + 360) - h2) % 360;
+            const hStepCCW = Math.idiv(-(hDistCCW * 100), steps);
+            let hStep: number;
+            if (direction === HueInterpolationDirection.Clockwise) {
+                hStep = hStepCW;
+            } else if (direction === HueInterpolationDirection.CounterClockwise) {
+                hStep = hStepCCW;
+            } else {
+                hStep = hDistCW < hDistCCW ? hStepCW : hStepCCW;
+            }
+            const h1_100 = h1 * 100; //we multiply by 100 so we keep more accurate results while doing interpolation
+
+            //sat
+            const s1 = saturation;
+            const s2 = saturation;
+            const sDist = s2 - s1;
+            const sStep = Math.idiv(sDist, steps);
+            const s1_100 = s1 * 100;
+
+            //lum
+            const l1 = luminance;
+            const l2 = luminance;
+            const lDist = l2 - l1;
+            const lStep = Math.idiv(lDist, steps);
+            const l1_100 = l1 * 100
+
+            //interpolate
+            if (steps === 1) {
+                this.setPixelColor(0, hsl(h1 + hStep, s1 + sStep, l1 + lStep))
+            } else {
+                this.setPixelColor(0, hsl(startHue, saturation, luminance));
+                for (let i = 1; i < steps - 1; i++) {
+                    const h = Math.idiv((h1_100 + i * hStep), 100) + 360;
+                    const s = Math.idiv((s1_100 + i * sStep), 100);
+                    const l = Math.idiv((l1_100 + i * lStep), 100);
+                    this.setPixelColor(i, hsl(h, s, l));
+                }
+                this.setPixelColor(steps - 1, hsl(endHue, saturation, luminance));
+            }
+            this.show();
+        }
+
+
+        /**
+         * 给指定灯珠设置颜色
+         * @param pixeloffset position of the NeoPixel in the strip
+         * @param rgb RGB color of the LED
+         */
+        //% blockId="neopixel_set_pixel_color" block="将%strip|第%pixeloffset|个灯珠的颜色设置为%rgb=neopixel_colors"
+        //% strip.defl=strip
+        //% blockGap=8
+        //% weight=80
+         //% subcategory=WS2812B
+        setPixelColor(pixeloffset: number, rgb: number): void {
+            this.setPixelRGB(pixeloffset >> 0, rgb >> 0);
+            sendBuffer(this.buf, this.pin);
+        }
+
+
+        show() {
+            // only supported in beta
+            // ws2812b.setBufferMode(this.pin, this._mode);
+            sendBuffer(this.buf, this.pin);
+        }
+
+        /**
+         * 关闭灯珠
+         */
+        //% blockId="neopixel_clear" block="关闭%strip|所有灯珠"
+        //% strip.defl=strip
+        //% weight=76
+        //% subcategory=WS2812B
+        clear(): void {
+            const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+            this.buf.fill(0, this.start * stride, this._length * stride);
+            sendBuffer(this.buf, this.pin);
+        }
+
+
+        /**
+         * 设置灯条亮度. 适用于之后的操作
+         * @param brightness a measure of LED brightness in 0-255. eg: 255
+         */
+        //% blockId="neopixel_set_brightness" block="设置%strip|所有灯珠亮度为 %brightness|" blockGap=8
+        //% strip.defl=strip
+        //% weight=85
+         //% subcategory=WS2812B
+        setBrightness(brightness: number): void {
+            this.brightness = brightness & 0xff;
+        }
+
+        /**
+         * 将led向前移动并清零
+         * @param offset number of pixels to shift forward, eg: 1
+         */
+        //% blockId="neopixel_shift" block="将%strip|的灯珠向前移动%offset个单位" blockGap=8
+        //% strip.defl=strip
+        //% weight=40
+        //% subcategory=WS2812B
+        shift(offset: number = 1): void {
+            offset = offset >> 0;
+            const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+            this.buf.shift(-offset * stride, this.start * stride, this._length * stride)
+            sendBuffer(this.buf, this.pin);
+        }
+
+        /**
+         * 循环向前移动灯珠
+         * @param offset number of pixels to rotate forward, eg: 1
+         */
+        //% blockId="neopixel_rotate" block="将%strip|灯珠以%offset个单位向前循环移动  |" blockGap=8
+        //% strip.defl=strip
+        //% weight=39
+        //% subcategory=WS2812B
+        rotate(offset: number = 1): void {
+            offset = offset >> 0;
+            const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+            this.buf.rotate(-offset * stride, this.start * stride, this._length * stride)
+            sendBuffer(this.buf, this.pin);
+        }
+
+        /**
+         * Set the pin where the neopixel is connected, defaults to P0.
+         */
+        //% weight=10
+        //% subcategory=WS2812B
+        setPin(pin: DigitalPin): void {
+            this.pin = pin;
+            pins.digitalWritePin(this.pin, 0);
+            // don't yield to avoid races on initialization
+        }
+
+
+        private setBufferRGB(offset: number, red: number, green: number, blue: number): void {
+            if (this._mode === NeoPixelMode.RGB_RGB) {
+                this.buf[offset + 0] = red;
+                this.buf[offset + 1] = green;
+            } else {
+                this.buf[offset + 0] = green;
+                this.buf[offset + 1] = red;
+            }
+            this.buf[offset + 2] = blue;
+        }
+
+        private setAllRGB(rgb: number) {
+            let red = unpackR(rgb);
+            let green = unpackG(rgb);
+            let blue = unpackB(rgb);
+
+            const br = this.brightness;
+            if (br < 255) {
+                red = (red * br) >> 8;
+                green = (green * br) >> 8;
+                blue = (blue * br) >> 8;
+            }
+            const end = this.start + this._length;
+            const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+            for (let i = this.start; i < end; ++i) {
+                this.setBufferRGB(i * stride, red, green, blue)
+            }
+        }
+        private setAllW(white: number) {
+            if (this._mode !== NeoPixelMode.RGBW)
+                return;
+
+            let br = this.brightness;
+            if (br < 255) {
+                white = (white * br) >> 8;
+            }
+            let buf = this.buf;
+            let end = this.start + this._length;
+            for (let i = this.start; i < end; ++i) {
+                let ledoffset = i * 4;
+                buf[ledoffset + 3] = white;
+            }
+        }
+        private setPixelRGB(pixeloffset: number, rgb: number): void {
+            if (pixeloffset < 0
+                || pixeloffset >= this._length)
+                return;
+
+            let stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
+            pixeloffset = (pixeloffset + this.start) * stride;
+
+            let red = unpackR(rgb);
+            let green = unpackG(rgb);
+            let blue = unpackB(rgb);
+
+            let br = this.brightness;
+            if (br < 255) {
+                red = (red * br) >> 8;
+                green = (green * br) >> 8;
+                blue = (blue * br) >> 8;
+            }
+            this.setBufferRGB(pixeloffset, red, green, blue)
+        }
+        private setPixelW(pixeloffset: number, white: number): void {
+            if (this._mode !== NeoPixelMode.RGBW)
+                return;
+
+            if (pixeloffset < 0
+                || pixeloffset >= this._length)
+                return;
+
+            pixeloffset = (pixeloffset + this.start) * 4;
+
+            let br = this.brightness;
+            if (br < 255) {
+                white = (white * br) >> 8;
+            }
+            let buf = this.buf;
+            buf[pixeloffset + 3] = white;
+        }
+    }
+
+    /**
+     * 创建驱动灯条
+     * @param pin the pin where the neopixel is connected.
+     * @param numleds number of leds in the strip, eg: 24,30,60,64
+     */
+    //% blockId="neopixel_create" block="引脚%pin|灯珠个数%numleds|显示模式%mode"
+    //% weight=90 blockGap=8
+    //% subcategory=WS2812B
+    //% trackArgs=0,2
+    //% blockSetVariable=strip
+    export function create(pin: DigitalPin, numleds: number, mode: NeoPixelMode): Strip {
+        let strip = new Strip();
+        let stride = mode === NeoPixelMode.RGBW ? 4 : 3;
+        strip.buf = pins.createBuffer(numleds * stride);
+        strip.start = 0;
+        strip._length = numleds;
+        strip._mode = mode || NeoPixelMode.RGB;
+        strip._matrixWidth = 0;
+        strip.setBrightness(128)
+        strip.setPin(pin)
+        return strip;
+    }
+
+    /**
+     * RGB颜色
+     * @param red value of the red channel between 0 and 255. eg: 255
+     * @param green value of the green channel between 0 and 255. eg: 255
+     * @param blue value of the blue channel between 0 and 255. eg: 255
+     */
+    //% weight=15 blockGap=8
+    //% blockId="neopixel_rgb" block="R%red|G%green|B%blue"
+    //% subcategory=WS2812B
+    export function rgb(red: number, green: number, blue: number): number {
+        return packRGB(red, green, blue);
+    }
+
+    /**
+     * 获取已知颜色的RGB颜色
+    */
+    //% weight=5 blockGap=8
+    //% blockId="neopixel_colors" block="%color"
+    //% subcategory=WS2812B
+    export function colors(color: NeoPixelColors): number {
+        return color;
+    }
+
+    function packRGB(a: number, b: number, c: number): number {
+        return ((a & 0xFF) << 16) | ((b & 0xFF) << 8) | (c & 0xFF);
+    }
+    function unpackR(rgb: number): number {
+        let r = (rgb >> 16) & 0xFF;
+        return r;
+    }
+    function unpackG(rgb: number): number {
+        let g = (rgb >> 8) & 0xFF;
+        return g;
+    }
+    function unpackB(rgb: number): number {
+        let b = (rgb) & 0xFF;
+        return b;
+    }
+
+    /**
+     * 将色调,饱和度,亮度转化为RGB值
+     * @param h hue from 0 to 360
+     * @param s saturation from 0 to 99
+     * @param l luminosity from 0 to 99
+     */
+    //% blockId=neopixelHSL block="色调%h|饱和度%s|亮度%l"
+    //% weight=10 blockGap=10
+    //% subcategory=WS2812B
+    export function hsl(h: number, s: number, l: number): number {
+        h = Math.round(h);
+        s = Math.round(s);
+        l = Math.round(l);
+
+        h = h % 360;
+        s = Math.clamp(0, 99, s);
+        l = Math.clamp(0, 99, l);
+        let c = Math.idiv((((100 - Math.abs(2 * l - 100)) * s) << 8), 10000); //chroma, [0,255]
+        let h1 = Math.idiv(h, 60);//[0,6]
+        let h2 = Math.idiv((h - h1 * 60) * 256, 60);//[0,255]
+        let temp = Math.abs((((h1 % 2) << 8) + h2) - 256);
+        let x = (c * (256 - (temp))) >> 8;//[0,255], second largest component of this color
+        let r$: number;
+        let g$: number;
+        let b$: number;
+        if (h1 == 0) {
+            r$ = c; g$ = x; b$ = 0;
+        } else if (h1 == 1) {
+            r$ = x; g$ = c; b$ = 0;
+        } else if (h1 == 2) {
+            r$ = 0; g$ = c; b$ = x;
+        } else if (h1 == 3) {
+            r$ = 0; g$ = x; b$ = c;
+        } else if (h1 == 4) {
+            r$ = x; g$ = 0; b$ = c;
+        } else if (h1 == 5) {
+            r$ = c; g$ = 0; b$ = x;
+        }
+        let m = Math.idiv((Math.idiv((l * 2 << 8), 100) - c), 2);
+        let r = r$ + m;
+        let g = g$ + m;
+        let b = b$ + m;
+        return packRGB(r, g, b);
+    }
+
+    export enum HueInterpolationDirection {
+        Clockwise,
+        CounterClockwise,
+        Shortest
+    }
+
+    let COMMAND_I2C_ADDRESS = 0x24
+    let DISPLAY_I2C_ADDRESS = 0x34
+    let _SEG = [0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71];
+
+    let _intensity = 3
+    let dbuf = [0, 0, 0, 0]
+
+    /**
+     * send command to display
+     * @param is command, eg: 0
+     */
+    function cmd(c: number) {
+        pins.i2cWriteNumber(COMMAND_I2C_ADDRESS, c, NumberFormat.Int8BE)
+    }
+
+    /**
+     * send data to display
+     * @param is data, eg: 0
+     */
+    function dat(bit: number, d: number) {
+        pins.i2cWriteNumber(DISPLAY_I2C_ADDRESS + (bit % 4), d, NumberFormat.Int8BE)
+    }
+
+    /**
+     * 打开数码管显示
+     */
+    //% blockId="TM650_ON" block="开启显示"
+    //% weight=50 blockGap=8
+    //% subcategory=数码管
+    export function on() {
+        cmd(_intensity * 16 + 1)
+    }
+
+    /**
+     * 关闭数码管显示
+     */
+    //% blockId="TM650_OFF" block="关闭显示"
+    //% weight=50 blockGap=8
+    //% subcategory=数码管
+    export function off() {
+        _intensity = 0
+        cmd(0)
+    }
+
+    /**
+     * 清空数码管显示
+     */
+    //% blockId="TM650_CLEAR" block="清空显示"
+    //% weight=40 blockGap=8
+    //% subcategory=数码管
+    export function clear() {
+        dat(0, 0)
+        dat(1, 0)
+        dat(2, 0)
+        dat(3, 0)
+        dbuf = [0, 0, 0, 0]
+    }
+
+    /**
+     * 在指定位置显示
+     * @param digit is number (0-15) will be shown, eg: 1
+     * @param bit is position, eg: 0
+     */
+    //% blockId="TM650_DIGIT" block="显示数字%num|在第%bit位"
+    //% weight=80 blockGap=8
+    //% num.max=15 num.min=0
+    //% subcategory=数码管
+    export function digit(num: number, bit: number) {
+        dbuf[bit % 4] = _SEG[num % 16]
+        dat(bit, _SEG[num % 16])
+    }
+
+    /**
+     * 显示数字
+     * @param num is number will be shown, eg: 100
+     */
+    //% blockId="TM650_SHOW_NUMBER" block="显示数字%num"
+    //% weight=100 blockGap=8
+    //% subcategory=数码管
+    export function showNumber(num: number) {
+        if (num < 0) {
+            dat(0, 0x40) // '-'
+            num = -num
+        }
+        else
+            digit(Math.idiv(num, 1000) % 10, 0)
+        digit(num % 10, 3)
+        digit(Math.idiv(num, 10) % 10, 2)
+        digit(Math.idiv(num, 100) % 10, 1)
+    }
+
+    /**
+     * 显示16进制数字
+     * @param num is number will be shown, eg: 123
+     */
+    //% blockId="TM650_SHOW_HEX_NUMBER" block="显示16进制数字%num"
+    //% weight=90 blockGap=8
+    //% subcategory=数码管
+    export function showHex(num: number) {
+        if (num < 0) {
+            dat(0, 0x40) // '-'
+            num = -num
+        }
+        else
+            digit((num >> 12) % 16, 0)
+        digit(num % 16, 3)
+        digit((num >> 4) % 16, 2)
+        digit((num >> 8) % 16, 1)
+    }
+
+    /**
+     * 显示点在指定位子
+     * @param bit is positiion, eg: 0
+     * @param show is true/false, eg: true
+     */
+    //% blockId="TM650_SHOW_DP" block="显示第%bit小数点|%num"
+    //% weight=80 blockGap=8
+    //% subcategory=数码管
+    export function showDpAt(bit: number, show: boolean) {
+        if (show) dat(bit, dbuf[bit % 4] | 0x80)
+        else dat(bit, dbuf[bit % 4] & 0x7F)
+    }
+
+    /**
+     * 显示亮度
+     * @param dat is intensity of the display, eg: 3
+     */
+    //% blockId="TM650_INTENSITY" block="设置显示亮度为dat"
+    //% weight=70 blockGap=8
+    //% subcategory=数码管
+    export function setIntensity(dat: number) {
+        if ((dat < 0) || (dat > 8))
+            return;
+        if (dat == 0)
+            off()
+        else {
+            _intensity = dat
+            cmd((dat << 4) | 0x01)
+        }
+    }
+
+    const enum IrButton {
+        //% block="any"
+        Any = -1,
+        //% block=" "
+        Unused_2 = -2,
+        //% block=" "
+        Unused_3 = -2,
+        //% block="1"
+        Number_1 = 0xA2,
+        //% block="2"
+        Number_2 = 0x62,
+        //% block="3"
+        Number_3 = 0xE2,
+        //% block="4"
+        Number_4 = 0x22,
+        //% block="5"
+        Number_5 = 0x02,
+        //% block="6"
+        Number_6 = 0xC2,
+        //% block="7"
+        Number_7 = 0xE0,
+        //% block="8"
+        Number_8 = 0xA8,
+        //% block="9"
+        Number_9 = 0x90,
+        //% block="*"
+        Star = 0x68,
+        //% block="0"
+        Number_0 = 0x98,
+        //% block="#"
+        Hash = 0x80,
+        //% block=" "
+        Unused_4 = -2,
+        //% block="▲"
+        Up = 0x18,
+        //% block=" "
+        Unused_5 = -2,
+        //% block="◀"
+        Left = 0x10,
+        //% block="OK"
+        Ok = 0x38,
+        //% block="▶"
+        Right = 0x5A,
+        //% block=" "
+        Unused_6 = -3,
+        //% block="▼"
+        Down = 0x4A,
+        //% block=" "
+        Unused_7 = -4,
+
+    }
+
+    const enum IrButtonAction {
+        //% block="按下"
+        Pressed = 0,
+        //% block="松开"
+        Released = 1,
+    }
+
+    const enum IrProtocol {
+        //% block="Keyestudio"
+        Keyestudio = 0,
+        //% block="NEC"
+        NEC = 1,
+    }
+
+    export enum Thread {
+        Priority = 0,
+        UserCallback = 1,
+    }
+
+    export enum Mode {
+        Repeat,
+        Once,
+    }
+
+    class Executor {
+        _newJobs: Job[] = undefined;
+        _jobsToRemove: number[] = undefined;
+        _pause: number = 100;
+        _type: Thread;
+
+        constructor(type: Thread) {
+            this._type = type;
+            this._newJobs = [];
+            this._jobsToRemove = [];
+            control.runInParallel(() => this.loop());
+        }
+
+        push(task: () => void, delay: number, mode: Mode): number {
+            if (delay > 0 && delay < this._pause && mode === Mode.Repeat) {
+                this._pause = Math.floor(delay);
+            }
+            const job = new Job(task, delay, mode);
+            this._newJobs.push(job);
+            return job.id;
+        }
+
+        cancel(jobId: number) {
+            this._jobsToRemove.push(jobId);
+        }
+
+        loop(): void {
+            const _jobs: Job[] = [];
+
+            let previous = control.millis();
+
+            while (true) {
+                const now = control.millis();
+                const delta = now - previous;
+                previous = now;
+
+                // Add new jobs
+                this._newJobs.forEach(function (job: Job, index: number) {
+                    _jobs.push(job);
+                });
+                this._newJobs = [];
+
+                // Cancel jobs
+                this._jobsToRemove.forEach(function (jobId: number, index: number) {
+                    for (let i = _jobs.length - 1; i >= 0; i--) {
+                        const job = _jobs[i];
+                        if (job.id == jobId) {
+                            _jobs.removeAt(i);
+                            break;
+                        }
+                    }
+                });
+                this._jobsToRemove = []
+
+
+                // Execute all jobs
+                if (this._type === Thread.Priority) {
+                    // newest first
+                    for (let i = _jobs.length - 1; i >= 0; i--) {
+                        if (_jobs[i].run(delta)) {
+                            this._jobsToRemove.push(_jobs[i].id)
+                        }
+                    }
+                } else {
+                    // Execute in order of schedule
+                    for (let i = 0; i < _jobs.length; i++) {
+                        if (_jobs[i].run(delta)) {
+                            this._jobsToRemove.push(_jobs[i].id)
+                        }
+                    }
+                }
+
+                basic.pause(this._pause);
+            }
+        }
+    }
+
+    class Job {
+        id: number;
+        func: () => void;
+        delay: number;
+        remaining: number;
+        mode: Mode;
+
+        constructor(func: () => void, delay: number, mode: Mode) {
+            this.id = randint(0, 2147483647)
+            this.func = func;
+            this.delay = delay;
+            this.remaining = delay;
+            this.mode = mode;
+        }
+
+        run(delta: number): boolean {
+            if (delta <= 0) {
+                return false;
+            }
+
+            this.remaining -= delta;
+            if (this.remaining > 0) {
+                return false;
+            }
+
+            switch (this.mode) {
+                case Mode.Once:
+                    this.func();
+                    basic.pause(0);
+                    return true;
+                case Mode.Repeat:
+                    this.func();
+                    this.remaining = this.delay;
+                    basic.pause(0);
+                    return false;
+            }
+        }
+    }
+
+    const queues: Executor[] = [];
+
+    export function schedule(
+        func: () => void,
+        type: Thread,
+        mode: Mode,
+        delay: number,
+    ): number {
+        if (!func || delay < 0) return 0;
+
+        if (!queues[type]) {
+            queues[type] = new Executor(type);
+        }
+
+        return queues[type].push(func, delay, mode);
+    }
+
+    export function remove(type: Thread, jobId: number): void {
+        if (queues[type]) {
+            queues[type].cancel(jobId);
+        }
+    }
+
+    let irState: IrState;
+
+    const IR_REPEAT = 256;
+    const IR_INCOMPLETE = 257;
+    const IR_DATAGRAM = 258;
+
+    const REPEAT_TIMEOUT_MS = 120;
+
+    interface IrState {
+        protocol: IrProtocol;
+        hasNewDatagram: boolean;
+        bitsReceived: uint8;
+        addressSectionBits: uint16;
+        commandSectionBits: uint16;
+        hiword: uint16;
+        loword: uint16;
+        activeCommand: number;
+        repeatTimeout: number;
+        onIrButtonPressed: IrButtonHandler[];
+        onIrButtonReleased: IrButtonHandler[];
+        onIrDatagram: () => void;
+    }
+    class IrButtonHandler {
+        irButton: IrButton;
+        onEvent: () => void;
+
+        constructor(
+            irButton: IrButton,
+            onEvent: () => void
+        ) {
+            this.irButton = irButton;
+            this.onEvent = onEvent;
+        }
+    }
+
+
+    function appendBitToDatagram(bit: number): number {
+        irState.bitsReceived += 1;
+
+        if (irState.bitsReceived <= 8) {
+            irState.hiword = (irState.hiword << 1) + bit;
+            if (irState.protocol === IrProtocol.Keyestudio && bit === 1) {
+                // recover from missing message bits at the beginning
+                // Keyestudio address is 0 and thus missing bits can be detected
+                // by checking for the first inverse address bit (which is a 1)
+                irState.bitsReceived = 9;
+                irState.hiword = 1;
+            }
+        } else if (irState.bitsReceived <= 16) {
+            irState.hiword = (irState.hiword << 1) + bit;
+        } else if (irState.bitsReceived <= 32) {
+            irState.loword = (irState.loword << 1) + bit;
+        }
+
+        if (irState.bitsReceived === 32) {
+            irState.addressSectionBits = irState.hiword & 0xffff;
+            irState.commandSectionBits = irState.loword & 0xffff;
+            return IR_DATAGRAM;
+        } else {
+            return IR_INCOMPLETE;
+        }
+    }
+
+    function decode(markAndSpace: number): number {
+        if (markAndSpace < 1600) {
+            // low bit
+            return appendBitToDatagram(0);
+        } else if (markAndSpace < 2700) {
+            // high bit
+            return appendBitToDatagram(1);
+        }
+
+        irState.bitsReceived = 0;
+
+        if (markAndSpace < 12500) {
+            // Repeat detected
+            return IR_REPEAT;
+        } else if (markAndSpace < 14500) {
+            // Start detected
+            return IR_INCOMPLETE;
+        } else {
+            return IR_INCOMPLETE;
+        }
+    }
+
+    function enableIrMarkSpaceDetection(pin: DigitalPin) {
+        pins.setPull(pin, PinPullMode.PullNone);
+
+        let mark = 0;
+        let space = 0;
+
+        pins.onPulsed(pin, PulseValue.Low, () => {
+            // HIGH, see https://github.com/microsoft/pxt-microbit/issues/1416
+            mark = pins.pulseDuration();
+        });
+
+        pins.onPulsed(pin, PulseValue.High, () => {
+            // LOW
+            space = pins.pulseDuration();
+            const status = decode(mark + space);
+
+            if (status !== IR_INCOMPLETE) {
+                handleIrEvent(status);
+            }
+        });
+    }
+
+    function handleIrEvent(irEvent: number) {
+
+        // Refresh repeat timer
+        if (irEvent === IR_DATAGRAM || irEvent === IR_REPEAT) {
+            irState.repeatTimeout = input.runningTime() + REPEAT_TIMEOUT_MS;
+        }
+
+        if (irEvent === IR_DATAGRAM) {
+            irState.hasNewDatagram = true;
+
+            if (irState.onIrDatagram) {
+                schedule(irState.onIrDatagram, Thread.UserCallback, Mode.Once, 0);
+            }
+
+            const newCommand = irState.commandSectionBits >> 8;
+
+            // Process a new command
+            if (newCommand !== irState.activeCommand) {
+
+                if (irState.activeCommand >= 0) {
+                    const releasedHandler = irState.onIrButtonReleased.find(h => h.irButton === irState.activeCommand || IrButton.Any === h.irButton);
+                    if (releasedHandler) {
+                        schedule(releasedHandler.onEvent, Thread.UserCallback, Mode.Once, 0);
+                    }
+                }
+
+                const pressedHandler = irState.onIrButtonPressed.find(h => h.irButton === newCommand || IrButton.Any === h.irButton);
+                if (pressedHandler) {
+                    schedule(pressedHandler.onEvent, Thread.UserCallback, Mode.Once, 0);
+                }
+
+                irState.activeCommand = newCommand;
+            }
+        }
+    }
+
+    function initIrState() {
+        if (irState) {
+            return;
+        }
+
+        irState = {
+            protocol: undefined,
+            bitsReceived: 0,
+            hasNewDatagram: false,
+            addressSectionBits: 0,
+            commandSectionBits: 0,
+            hiword: 0, // TODO replace with uint32
+            loword: 0,
+            activeCommand: -1,
+            repeatTimeout: 0,
+            onIrButtonPressed: [],
+            onIrButtonReleased: [],
+            onIrDatagram: undefined,
+        };
+    }
+
+    /**
+     * 在指定引脚连接红外接收模块，配置红外协议。
+     * @param pin IR receiver pin, eg: DigitalPin.P0
+     * @param protocol IR protocol, eg: IrProtocol.Keyestudio
+     */
+    //% blockId="makerbit_infrared_connect_receiver"
+    //% block="红外接收器引脚 %pin|设置解码方式为%protocol|"
+    //% pin.fieldEditor="gridpicker"
+    //% pin.fieldOptions.columns=4
+    //% pin.fieldOptions.tooltips="false"
+    //% weight=90
+    //% subcategory=红外遥控
+    export function connectIrReceiver(
+        pin: DigitalPin,
+        protocol: IrProtocol
+    ): void {
+        initIrState();
+
+        if (irState.protocol) {
+            return;
+        }
+
+        irState.protocol = protocol;
+
+        enableIrMarkSpaceDetection(pin);
+
+        schedule(notifyIrEvents, Thread.Priority, Mode.Repeat, REPEAT_TIMEOUT_MS);
+    }
+
+    function notifyIrEvents() {
+        if (irState.activeCommand === -1) {
+            // skip to save CPU cylces
+        } else {
+            const now = input.runningTime();
+            if (now > irState.repeatTimeout) {
+                // repeat timed out
+
+                const handler = irState.onIrButtonReleased.find(h => h.irButton === irState.activeCommand || IrButton.Any === h.irButton);
+                if (handler) {
+                    schedule(handler.onEvent, Thread.UserCallback, Mode.Once, 0);
+                }
+
+                irState.bitsReceived = 0;
+                irState.activeCommand = -1;
+            }
+        }
+    }
+
+    /**
+     * 当遥控器特定按钮被按下或释放时 产生事件
+     * @param button the button to be checked
+     * @param action the trigger action
+     * @param handler body code to run when the event is raised
+     */
+    //% blockId=makerbit_infrared_on_ir_button
+    //% block="当按钮|%button|被%action时"
+    //% button.fieldEditor="gridpicker"
+    //% button.fieldOptions.columns=3
+    //% button.fieldOptions.tooltips="false"
+    //% weight=50
+    //% subcategory=红外遥控
+    export function onIrButton(
+        button: IrButton,
+        action: IrButtonAction,
+        handler: () => void
+    ) {
+        initIrState();
+        if (action === IrButtonAction.Pressed) {
+            irState.onIrButtonPressed.push(new IrButtonHandler(button, handler));
+        }
+        else {
+            irState.onIrButtonReleased.push(new IrButtonHandler(button, handler));
+        }
+    }
+
+    /**
+     * 返回最后按下的按钮的代码。如果还没有按钮被按下，返回-1。
+     */
+    //% blockId=makerbit_infrared_ir_button_pressed
+    //% block="红外接收值"
+    //% weight=70
+    //% subcategory=红外遥控
+    export function irButton(): number {
+        basic.pause(0); // Yield to support background processing when called in tight loops
+        if (!irState) {
+            return IrButton.Any;
+        }
+        return irState.commandSectionBits >> 8;
+    }
+
+    /**
+     * 接收到红外数据时发生事件
+     * @param handler body code to run when the event is raised
+     */
+    //% blockId=makerbit_infrared_on_ir_datagram
+    //% block="接收到红外数据时"
+    //% weight=40
+    //% subcategory=红外遥控
+    export function onIrDatagram(handler: () => void) {
+        initIrState();
+        irState.onIrDatagram = handler;
+    }
+
+    /**
+     * 返回32位十六进制字符串形式的IR数据报，当未接收到返回0x00000000
+     */
+
+    //% blockId=makerbit_infrared_ir_datagram
+    //% block="红外接收值(十六进制)"
+    //% weight=30
+    //% subcategory=红外遥控
+    export function irDatagram(): string {
+        basic.pause(0); // Yield to support background processing when called in tight loops
+        initIrState();
+        return (
+            "0x" +
+            ir_rec_to16BitHex(irState.addressSectionBits) +
+            ir_rec_to16BitHex(irState.commandSectionBits)
+        );
+    }
+
+    /**
+     * 接收到红外数据 产生事件
+     */
+
+    //% blockId=makerbit_infrared_was_any_ir_datagram_received
+    //% block="收到红外数据"
+    //% weight=80
+    //% subcategory=红外遥控
+    export function wasIrDataReceived(): boolean {
+        basic.pause(0); // Yield to support background processing when called in tight loops
+        initIrState();
+        if (irState.hasNewDatagram) {
+            irState.hasNewDatagram = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 返回特定按钮的值
+     * @param button the button
+     */
+    //% blockId=makerbit_infrared_button_code
+    //% button.fieldEditor="gridpicker"
+    //% button.fieldOptions.columns=3
+    //% button.fieldOptions.tooltips="false"
+    //% block="按钮%button的值"
+    //% weight=60
+    //% subcategory=红外遥控
+    export function irButtonCode(button: IrButton): number {
+        basic.pause(0); // Yield to support background processing when called in tight loops
+        return button as number;
+    }
+
+    function ir_rec_to16BitHex(value: number): string {
+        let hex = "";
+        for (let pos = 0; pos < 4; pos++) {
+            let remainder = value % 16;
+            if (remainder < 10) {
+                hex = remainder.toString() + hex;
+            } else {
+                hex = String.fromCharCode(55 + remainder) + hex;
+            }
+            value = Math.idiv(value, 16);
+        }
+        return hex;
     }
 }
