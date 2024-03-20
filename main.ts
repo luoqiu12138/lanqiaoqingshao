@@ -1626,6 +1626,30 @@ namespace lanqiaoqingshao{
         return hex;
     }
     
-    
+    let i2cAddr = 0x60;
+    /**
+       * Read the measured distance in centimeters
+       */
+    export function fnReadCm(i2cAddr: number): number {
+        let mm: number;
+
+        pins.i2cWriteNumber(0X57, 0X01, NumberFormat.UInt8BE)
+        basic.pause(100)
+        let readbuf = pins.i2cReadBuffer(0X57, pins.sizeOf(NumberFormat.UInt8LE) * 3)
+        mm = (readbuf[0] * 65535 + readbuf[1] * 256 + readbuf[2]) / 100;
+        return (mm)
+    }
+
+    /**
+     * 读取超声波测量距离
+     */
+    //% subcategory=超声波
+    //% blockId="readcm" block="测量距离(cm)"
+    //% weight=90  
+    export function readcm(): number {
+        let cm: number = fnReadCm(i2cAddr);
+        basic.pause(10);
+        return (cm)
+    }
     
 }
