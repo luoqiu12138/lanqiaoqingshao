@@ -1641,7 +1641,7 @@ namespace lanqiaoqingshao{
     }
 
     /**
-     * Read sensor in cm.
+     * 读取超声波测量距离
      */
     //% subcategory=超声波
     //% blockId="readcm" block="测量距离(cm)"
