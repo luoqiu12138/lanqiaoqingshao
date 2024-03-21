@@ -1121,7 +1121,7 @@ namespace lanqiaoqingshao{
      * 显示亮度
      * @param dat is intensity of the display, eg: 3
      */
-    //% blockId="TM650_INTENSITY" block="设置显示亮度为dat"
+    //% blockId="TM650_INTENSITY" block="设置显示亮度为%dat"
     //% weight=70 blockGap=8
     //% subcategory=数码管
     export function setIntensity(dat: number) {
