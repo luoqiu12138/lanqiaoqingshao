@@ -1648,7 +1648,7 @@ namespace lanqiaoqingshao{
     //% weight=90  
     export function readcm(): number {
         let cm: number = fnReadCm(i2cAddr);
-        basic.pause(10);
+        basic.pause(100);
         return (cm)
     }
     
