@@ -63,11 +63,11 @@ const enum IrButton {
     //% block="0"
     Number_0 = 0x98,
     //% block="#"
-    Hash = 0x80,
+    Hash = 0xAF,
     //% block=" "
     Unused_4 = -2,
     //% block="▲"
-    Up = 0x18,
+    Up = 0xB0,
     //% block=" "
     Unused_5 = -2,
     //% block="◀"
