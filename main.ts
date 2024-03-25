@@ -621,6 +621,7 @@ namespace lanqiaoqingshao{
         }
     }
 
+    
 
     export class Strip {
         buf: Buffer;
@@ -646,11 +647,17 @@ namespace lanqiaoqingshao{
             this.show();
         }
 
+
+        
         /**
-         * Shows a rainbow pattern on all LEDs.
-         * @param startHue the start hue value for the rainbow, eg: 1
-         * @param endHue the end hue value for the rainbow, eg: 360
-         */
+        * 在所有灯珠上显示彩虹
+        * @param startHue the start hue value for the rainbow, eg: 1
+        * @param endHue the end hue value for the rainbow, eg: 360
+        */
+        //% blockId="neopixel_set_strip_rainbow" block="设置%strip|显示彩虹 色相从%startHue|到%endHue"
+        //% strip.defl=strip
+        //% weight=85 blockGap=8
+        //% subcategory=WS2812B
         showRainbow(startHue: number = 1, endHue: number = 360) {
             if (this._length <= 0) return;
 
@@ -707,7 +714,8 @@ namespace lanqiaoqingshao{
             }
             this.show();
         }
-
+        
+        
 
         /**
          * 给指定灯珠设置颜色
@@ -755,6 +763,30 @@ namespace lanqiaoqingshao{
         //% subcategory=WS2812B
         setBrightness(brightness: number): void {
             this.brightness = brightness & 0xff;
+        }
+        
+        /**
+        * 创建一条新灯带
+        * @param start offset in the LED strip to start the range
+        * @param length number of LEDs in the range. eg: 4
+        */
+        //% weight=89
+        //% blockId="neopixel_range" block="%strip|从像素 %start|开始 长度 %length|颗灯珠"
+        //% strip.defl=strip
+        //% subcategory=WS2812B
+        //% blockSetVariable=range
+        range(start: number, length: number): Strip {
+            start = start >> 0;
+            length = length >> 0;
+            let strip = new Strip();
+            strip.buf = this.buf;
+            strip.pin = this.pin;
+            strip.brightness = this.brightness;
+            strip.start = this.start + Math.clamp(0, this._length - 1, start);
+            strip._length = Math.clamp(0, this._length - (strip.start - this.start), length);
+            strip._matrixWidth = 0;
+            strip._mode = this._mode;
+            return strip;
         }
 
         /**
