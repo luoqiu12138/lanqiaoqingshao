@@ -1658,14 +1658,14 @@ namespace lanqiaoqingshao{
         return hex;
     }
     
-    let i2cAddr = 0x60;
+    let i2cAddr = 0x57;
     /**
     * Read the measured distance in centimeters
     */
     export function fnReadCm(i2cAddr: number): number {
         let cm: number;
         pins.i2cWriteNumber(0X57, 0X01, NumberFormat.UInt8BE)
-        basic.pause(100)
+        basic.pause(300)
         let readbuf = pins.i2cReadBuffer(0X57, pins.sizeOf(NumberFormat.UInt8LE) * 3)
         cm = (readbuf[0] * 65535 + readbuf[1] * 256 + readbuf[2]) / 1000 /10; 
         cm = Math.round(cm * 100) / 100;
@@ -1680,7 +1680,6 @@ namespace lanqiaoqingshao{
     //% weight=90  
     export function readcm(): number {
         let cm: number = fnReadCm(i2cAddr);
-        basic.pause(100);
         return (cm)
     }
     
