@@ -1671,23 +1671,6 @@ namespace lanqiaoqingshao{
         cm = Math.round(cm * 100) / 100;
         return (cm)
     }
-
-    /**
-      * Ask ultrasonic sensor to send ping wave
-      */
-    export function fnTrigger(i2cAddr: number) {
-        let buf = pins.createBuffer(1);
-        buf[0] = 0x01;
-        pins.i2cWriteBuffer(i2cAddr, buf);
-    }
-    
-    /**
-    * start measurement
-    */
-    export function trigger() {
-        fnTrigger(i2cAddr);
-        basic.pause(10);
-    }
     /**
      * 读取超声波测量距离
      */
