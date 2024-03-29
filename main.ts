@@ -1679,14 +1679,13 @@ namespace lanqiaoqingshao{
         let buf = pins.createBuffer(1);
         buf[0] = 0x01;
         pins.i2cWriteBuffer(i2cAddr, buf);
-        //basic.pause(1)
     }
     
     /**
     * start measurement
     */
     //% subcategory=超声波
-    //% blockId="trigger" block="超声波开始测量"
+    //% blockId="trigger" block="超声波开始测量     "
     //% weight=92 blockGap=20 
     export function trigger() {
         fnTrigger(i2cAddr);
