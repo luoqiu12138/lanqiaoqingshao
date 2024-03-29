@@ -1673,6 +1673,27 @@ namespace lanqiaoqingshao{
     }
 
     /**
+      * Ask ultrasonic sensor to send ping wave
+      */
+    export function fnTrigger(i2cAddr: number) {
+        let buf = pins.createBuffer(1);
+        buf[0] = 0x01;
+        pins.i2cWriteBuffer(i2cAddr, buf);
+        //basic.pause(1)
+    }
+    
+    /**
+    * start measurement
+    */
+    //% subcategory=SR04-RGB
+    //% group="single SR04-RGB"
+    //% blockId="trigger" block="start measurement"
+    //% weight=92 blockGap=20 color=3CB371
+    export function trigger() {
+        fnTrigger(i2cAddr);
+        basic.pause(10);
+    }
+    /**
      * 读取超声波测量距离
      */
     //% subcategory=超声波
