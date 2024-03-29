@@ -1684,9 +1684,6 @@ namespace lanqiaoqingshao{
     /**
     * start measurement
     */
-    //% subcategory=超声波
-    //% blockId="trigger" block="超声波开始测量     "
-    //% weight=92 blockGap=20 
     export function trigger() {
         fnTrigger(i2cAddr);
         basic.pause(10);
